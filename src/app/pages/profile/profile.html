@@ -1,0 +1,29 @@
+<div class="auth-page">
+  <section class="web-card">
+    <header class="web-head">
+      <h1>Profile</h1>
+      <button type="button" class="text-link" (click)="logout()">Log out</button>
+    </header>
+
+    @if (user(); as current) {
+      <app-avatar [imageUrl]="imageUrl()" [name]="fullName()" />
+      <h2 class="profile-name">{{ fullName() }}</h2>
+      <p class="profile-mail">{{ current.email }}</p>
+
+      <dl class="details">
+        <div>
+          <dt>Role</dt>
+          <dd>{{ current.role || '—' }}</dd>
+        </div>
+        <div>
+          <dt>Joined</dt>
+          <dd>{{ joined() || '—' }}</dd>
+        </div>
+      </dl>
+
+      <a class="primary-btn" routerLink="/profile/edit">Edit profile</a>
+    } @else {
+      <p class="empty-state">Could not load your profile.</p>
+    }
+  </section>
+</div>

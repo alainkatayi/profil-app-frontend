@@ -1,0 +1,53 @@
+<div class="auth-page">
+  <section class="web-card">
+    <header class="web-head">
+      <h1>Edit profile</h1>
+      <a class="text-link" routerLink="/profile">Back</a>
+    </header>
+
+    <app-avatar
+      [imageUrl]="displayUrl()"
+      [name]="fullName()"
+      action="upload"
+      [uploading]="uploading()"
+      (fileSelected)="onFile($event)"
+    />
+
+    <form class="auth-form profile-form" [formGroup]="form" (ngSubmit)="save()" novalidate (input)="error.set('')">
+      <div class="field">
+        <label class="pill-label" for="firstname">First name</label>
+        <input
+          id="firstname"
+          class="text-input"
+          type="text"
+          formControlName="firstname"
+          autocomplete="given-name"
+        />
+      </div>
+
+      <div class="field">
+        <label class="pill-label" for="lastname">Last name</label>
+        <input
+          id="lastname"
+          class="text-input"
+          type="text"
+          formControlName="lastname"
+          autocomplete="family-name"
+        />
+      </div>
+
+      <div class="field">
+        <label class="pill-label" for="email">Email</label>
+        <input id="email" class="text-input" type="email" [value]="user()?.email ?? ''" readonly />
+      </div>
+
+      @if (error()) {
+        <p class="form-error" role="alert">{{ error() }}</p>
+      }
+
+      <button class="primary-btn" type="submit" [disabled]="saving() || uploading()">
+        {{ saving() ? 'Please wait…' : 'Save changes' }}
+      </button>
+    </form>
+  </section>
+</div>
